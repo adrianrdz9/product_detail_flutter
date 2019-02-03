@@ -3,9 +3,9 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter/material.dart';
 
   List<String> images = [
-    "https://picsum.photos/200/300?image=1",
-    "https://picsum.photos/200/300/?image=30",
-    "https://picsum.photos/200/300/?image=50"
+    "https://picsum.photos/200/300",
+    "https://picsum.photos/200/300?image=30",
+    "https://picsum.photos/200/300?image=50"
   ];
 
 class TopImages extends StatelessWidget {
@@ -15,32 +15,22 @@ class TopImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     pageView ??= [];
-  //   body: new Stack(
-  //     children: <Widget>[
-  //       new Container(
-  //         decoration: new BoxDecoration(
-  //           image: new DecorationImage(image: NetworkImage(images[0]),fit: BoxFit.cover,),
-  //         ),
-  //       ),
-  //       new Center(
-  //         child: new Text("Hello background"),
-  //       )
-  //     ],
-  //   )
-  // );
     List<Widget> el = <Widget>[
       Container(
         height: 150,
+        decoration: BoxDecoration(),
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
-            return new Image.network(
-              images[index],
+            return CachedNetworkImage(
+              imageUrl: images[index],
+              placeholder: LinearProgressIndicator(),
+              errorWidget: Icon(Icons.error),
               fit: BoxFit.fill,
             );
           },
           itemCount: images.length,
           pagination:
-              new SwiperPagination(builder: SwiperPagination.dots),
+              SwiperPagination(builder: SwiperPagination.dots),
         )
       ),
       Container(
